@@ -1,0 +1,67 @@
+#uploadCSV{
+    text-align: center;
+    /* vertical-align: middle; */
+    min-width: 100vh;
+    margin-top: 40vh;
+}
+.profile-select {
+    background-color: rgb(135, 171, 250);
+}
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+
+.table-wrapper { 
+    overflow-x:scroll;
+    overflow-y:visible;
+    width:250px;
+    margin-left: 120px;
+}
+
+
+td, th {
+    padding: 5px 20px;
+    width: 100px;
+}
+
+th:first-child {
+    position: fixed;
+    left: 5px
+}
+
+table.record {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table.record td, table.record th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  table.record tr:nth-child(even) {
+    background-color: #dddddd;
+  }

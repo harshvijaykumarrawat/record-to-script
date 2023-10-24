@@ -1,0 +1,166 @@
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="./javascripts/toasts.js"></script>
+	<script src="./javascripts/analyzer.js"></script>
+	<script src="./javascripts/authentication.js"></script>
+	<script src="./javascripts/records.js"></script>
+</head>
+
+<body>
+
+	<!--Header Content Start-->
+	<div class="container" id="header_content">
+		<!-- Navigation Start-->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top" id="header">
+			<div class="container">
+				<a class="navbar-brand" href="#">Records to Script</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				 aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive" style="display:none !important;">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="#">Home
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">About</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Services</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Contact</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- Navigation End-->
+	</div>
+	<!--Header Content End-->
+
+	<!--login_content Started-->
+	<div class="container" id="login_content" style="display:content;">
+		<!--Authentication selection started-->
+		<div class="row" style="margin-top: 90px;margin-bottom: 20px;">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-6">
+				<ul class="nav nav-auth mb-3 nav-tabs" id="auth-tab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="auth-password-tab" data-toggle="pill" href="#auth-password" role="tab"
+						 aria-controls="auth-password" aria-selected="true">Password</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="auth-oauth-tab" data-toggle="pill" href="#auth-oauth" role="tab" aria-controls="auth-oauth"
+						 aria-selected="false">OAuth</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4"></div>
+		</div>
+		<!--Authentication selection End-->
+		<!--Auth Types started-->
+		<div id="filter-rows" style="margin-bottom:20px">
+			<div class="row" style="margin-bottom:15px;">
+				<div class="col-lg-2 text-center">
+				</div>
+				<div class="col-lg-6">
+					<div class="tab-content" id="auth-tabContent">
+						<div class="tab-pane fade show active" id="auth-password" role="tabpanel" aria-labelledby="auth-password-tab">
+							<form>
+								<div class="form-group">
+									<label for="username">Username</label>
+									<input type="email" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username">
+									<small id="emailHelp" class="form-text text-muted">We never save your email or password.</small>
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" placeholder="Password">
+								</div>
+								<div class="form-group">
+									<label for="security_token">Security Token</label>
+									<input type="password" class="form-control" id="security_token" placeholder="Security Token">
+								</div>
+								<div class="form-check-inline">
+									<label class="form-check-label">
+										<input type="checkbox" id="is_production" class="form-check-input" value="Production" />Production
+									</label>
+								</div><br />
+								<button type="button" onclick="authenticate('Password')" class="btn btn-primary">Login</button>
+							</form>
+						</div>
+						<div class="tab-pane fade" id="auth-oauth" role="tabpanel" aria-labelledby="auth-oauth-tab">
+							<form>
+								<select class="custom-select" id="enviroment">
+									<option selected value="PRODUCTION">Production</option>
+									<option value="SANDBOX">Sandbox</option>
+								</select>
+								<button type="button" onclick="authenticate('OAuth')" class="btn btn-primary mt-4">Login</button>
+							</form>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 text-center">
+				</div>
+			</div>
+		</div>
+		<!--Auth Types selection end-->
+	</div>
+	<!--login_content Ended-->
+
+	<!--Record View Started-->
+	<div class="container" id="record_view" style="display:none;">
+		<div class="row" id="record-id-row" style="margin-top:80px;">
+			<div class="col-lg-2 text-center">
+			</div>
+			<div class="col-lg-8" style="display:inherit">
+				<input style="display:inline; width:60%;" type="text" class="form-control" id="record_id" placeholder="Record Id" />
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<button style="display:inline" type="button" onclick="getRecord();" class="btn btn-primary">Get Record</button>
+				<button style="display:none" type="button" onclick="clear();" class="btn btn-primary">Clear</button>
+				&nbsp;
+				<button style="display:inline" type="button" onclick="generate_script();" class="btn btn-primary">Script</button>
+			</div>
+			<div class="col-lg-2 text-center">
+			</div>
+		</div>
+	</div>
+	<!--Record View Ended-->
+
+	<!--modal atarted-->
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+	 aria-hidden="true" id="modalUI">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalHeader">New message</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modalBody">
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--modal ended-->
+
+	<script>
+		var $org = { records: {}, objects: {}, object_metadata: {}, analysis: {} };
+	</script>
+</body>
+
+</html>
