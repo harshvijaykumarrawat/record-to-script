@@ -9,6 +9,7 @@
 	<script src="./javascripts/analyzer.js"></script>
 	<script src="./javascripts/authentication.js"></script>
 	<script src="./javascripts/records.js"></script>
+	<title>Records to Script</title>
 </head>
 
 <body>
@@ -126,9 +127,10 @@
 				<input style="display:inline; width:60%;" type="text" class="form-control" id="record_id" placeholder="Record Id" />
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<button style="display:inline" type="button" onclick="getRecord();" class="btn btn-primary">Get Record</button>
-				<button style="display:none" type="button" onclick="clear();" class="btn btn-primary">Clear</button>
 				&nbsp;
 				<button style="display:inline" type="button" onclick="generate_script();" class="btn btn-primary">Script</button>
+				&nbsp;
+				<button style="display:inline" type="button" onclick="clear_records();" class="btn btn-primary">Clear</button>
 			</div>
 			<div class="col-lg-2 text-center">
 			</div>

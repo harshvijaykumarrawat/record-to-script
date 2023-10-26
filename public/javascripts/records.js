@@ -1,7 +1,9 @@
 function getRecord() {
-    var recordId = $('#record_id').val();
-    showMsg('Accessing Record..' + recordId);
-    describe_record(recordId);
+    var recordIds = $('#record_id').val().split(',');
+	for(let recordId of recordIds){
+		showMsg('Accessing Record..' + recordId);
+		describe_record(recordId);	
+	}
 }
 
 function describe_record(recordId, callback_method) {
@@ -136,6 +138,10 @@ function view_record(recordId){
     $('#modalUI').modal('show');
 }
 
-function clear(){
-    $org = { records: {}, objects: {}, object_metadata: {}, analysis: {} };
+function clear_records(){
+    $org.records= {};
+    $org.objects= {};
+    $org.object_metadata= {};
+    $org.analysis= {};
+	$('#record_view').html('<div class="row" id="record-id-row" style="margin-top:80px"><div class="col-lg-2 text-center"></div><div class="col-lg-8" style="display:inherit"><input style="display:inline;width:60%" type="text" class="form-control" id="record_id" placeholder="Record Id"> &nbsp;&nbsp;&nbsp;&nbsp;<button style="display:inline" type="button" onclick="getRecord()" class="btn btn-primary">Get Record</button>&nbsp;<button style="display:inline" type="button" onclick="generate_script()" class="btn btn-primary">Script</button>&nbsp;<button style="display:inline" type="button" onclick="clear_records()" class="btn btn-primary">Clear</button></div><div class="col-lg-2 text-center"></div></div>');
 }
